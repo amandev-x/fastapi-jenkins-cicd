@@ -33,7 +33,7 @@ pipeline {
                 echo "Running tests cases"
                 sh '''
                 . ${VENV_DIR}/bin/activate
-                pytest tests/tests.py -v
+                pytest tests/test.py -v
                 '''
             }
         }
