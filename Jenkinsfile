@@ -2,7 +2,7 @@ pipeline {
     agent {label 'agent'}
 
     environment {
-        DOCKER_BUILDKIT = "1"
+        // DOCKER_BUILDKIT = "1"
         DOCKERHUB_CREDS = credentials("docker")
         IMAGE_NAME = "fastapi-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
