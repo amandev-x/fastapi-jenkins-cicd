@@ -41,7 +41,7 @@ pipeline {
             steps {
                 echo "Building docker images"
                 script {
-                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "-f app/Dockerfile")
                 }
             }
         }
