@@ -2,6 +2,7 @@ pipeline {
     agent {label 'agent'}
 
     environment {
+        DOCKER_BUILDKIT = "1"
         DOCKERHUB_CREDS = credentials("docker")
         IMAGE_NAME = "fastapi-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
@@ -41,7 +42,7 @@ pipeline {
             steps {
                 echo "Building docker images"
                 script {
-                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "-f app/Dockerfile")
+                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -f app/Dockerfile ."
                 }
             }
         }
@@ -49,9 +50,9 @@ pipeline {
         stage("Testing docker image") {
             steps {
                 sh '''
-                docker run -d --name test-container -p 8000:8000 ${DOCKER_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}
+                docker run -d --name test-container -p 8000:8000 ${IMAGE_NAME}:${IMAGE_TAG}
                 sleep 5
-                curl -f http://localhost:8000/health || exit 1
+                curl -f http://localhost:8000/health
                 docker rm -f test-container
                 '''
             }
