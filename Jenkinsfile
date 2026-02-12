@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDS = credentials("docker")
-        DOCKER_USERNAME = "amandabral9954"
         IMAGE_NAME = "fastapi-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
         PYTHON_VERSION = "python3"
